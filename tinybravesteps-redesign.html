@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiny Brave Steps | Online therapy, come as you are</title>
+<meta name="description" content="Gentle, trauma-informed online therapy from Delhi NCR. Tell us a little about yourself and we'll match you with a therapist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#232A4A;
+  --ink-soft:#4B5172;
+  --paper:#F7F5FC;
+  --white:#FFFFFF;
+  --marigold:#F2B632;
+  --marigold-deep:#D99A12;
+  --sage:#C3DCCB;
+  --sky:#CFE0F5;
+  --blush:#F6D5D1;
+  --lilac:#DDD6F3;
+  --line:#DAD6EA;
+  --radius:22px;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --gutter:clamp(18px,5vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:var(--body);font-size:1.0625rem;line-height:1.65;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.12;letter-spacing:-.015em}
+h2{font-size:clamp(1.9rem,3.6vw,2.9rem);max-width:20ch}
+p{max-width:62ch}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:100}
+.skip:focus{left:8px}
+.wrap{width:min(1160px,100% - 2*var(--gutter));margin-inline:auto}
+section{padding-block:clamp(64px,9vw,120px)}
+
+/* buttons */
+.btn{display:inline-block;font:600 1rem/1 var(--body);text-decoration:none;padding:17px 28px;border-radius:999px;background:var(--marigold);color:var(--ink);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn.ghost{background:transparent}
+.btn.small{padding:12px 20px;font-size:.95rem;box-shadow:3px 3px 0 var(--ink)}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;background:rgba(247,245,252,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:72px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 1.2rem var(--display)}
+.brand svg{width:34px;height:34px}
+.nav ul{display:flex;gap:28px;list-style:none;align-items:center}
+.nav ul a{text-decoration:none;font-weight:500;font-size:.98rem;padding:6px 0;border-bottom:2px solid transparent}
+.nav ul a:hover{border-color:var(--marigold)}
+.menu-btn{display:none;background:none;border:2px solid var(--ink);border-radius:12px;padding:8px 14px;font:600 .95rem var(--body);color:var(--ink);cursor:pointer}
+
+/* hero */
+.hero{padding-top:clamp(40px,6vw,80px);padding-bottom:clamp(56px,8vw,100px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.25fr .85fr;gap:clamp(24px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(2.1rem,4.7vw,3.9rem);max-width:19ch}
+.hero .sub{margin-top:22px;font-size:1.25rem;font-weight:500}
+.hero .actions{margin-top:32px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.hero .note{margin-top:22px;color:var(--ink-soft);font-size:.98rem}
+.path{width:100%;height:auto}
+.stone{transform-box:fill-box;transform-origin:center;opacity:0;animation:land .55s cubic-bezier(.3,1.5,.5,1) forwards}
+.s1{animation-delay:.1s}.s2{animation-delay:.35s}.s3{animation-delay:.6s}.s4{animation-delay:.85s}.s5{animation-delay:1.1s}.s6{animation-delay:1.35s}
+@keyframes land{from{opacity:0;transform:scale(.4) translateY(-14px)}to{opacity:1;transform:none}}
+
+/* familiar */
+.familiar{background:var(--ink);color:#fff}
+.familiar h2{max-width:24ch}
+.familiar .lead{margin-top:18px;color:#D7D9EE}
+.chips{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px}
+.chip{font:500 1.02rem/1.35 var(--body);text-align:left;padding:13px 20px;border-radius:999px;border:2px solid #5A6190;background:transparent;color:#fff;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.chip:hover{border-color:var(--marigold)}
+.chip[aria-pressed="true"]{background:var(--marigold);border-color:var(--marigold);color:var(--ink)}
+.reply{margin-top:36px;min-height:96px}
+.reply[hidden]{display:none}
+.reply p{font:500 1.35rem/1.4 var(--display);max-width:40ch}
+.reply .btn{margin-top:20px}
+
+/* steps */
+.steps-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.steps{margin-top:56px;list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:20px;counter-reset:s}
+.steps li{position:relative;padding-top:64px}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;top:0;left:0;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:700 1.2rem var(--display);background:var(--c,var(--sage));border:2px solid var(--ink)}
+.steps li::after{content:"";position:absolute;top:24px;left:60px;right:-8px;border-top:2px dashed var(--ink-soft);opacity:.5}
+.steps li:last-child::after{display:none}
+.steps li:nth-child(1){--c:var(--sage)}.steps li:nth-child(2){--c:var(--sky)}.steps li:nth-child(3){--c:var(--blush)}.steps li:nth-child(4){--c:var(--lilac)}.steps li:nth-child(5){--c:var(--marigold)}
+.steps h3{font-size:1.15rem;margin-bottom:8px}
+.steps p{font-size:.98rem;color:var(--ink-soft)}
+
+/* therapists */
+.team{background:var(--white);border-block:1px solid var(--line)}
+.cards{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card{background:var(--paper);border:2px solid var(--ink);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.card .ph{aspect-ratio:4/4.2;background:var(--c,var(--lilac));overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.card:nth-child(1){--c:var(--sage)}.card:nth-child(2){--c:var(--sky)}.card:nth-child(3){--c:var(--blush)}
+.card .body{padding:22px 24px 26px}
+.card h3{font-size:1.5rem}
+.card ul{margin-top:12px;list-style:none;display:grid;gap:7px}
+.card li{font-size:.97rem;color:var(--ink-soft);padding-left:18px;position:relative}
+.card li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--marigold);border:1.5px solid var(--ink)}
+.team .more{margin-top:32px}
+
+/* show up + about */
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,6vw,88px);align-items:start}
+.split .sticky{position:sticky;top:110px}
+.prose{display:grid;gap:18px}
+.prose .big{font:500 1.4rem/1.4 var(--display)}
+.values{margin-top:34px;display:grid;gap:14px}
+.value{padding:20px 24px;border-radius:var(--radius);background:var(--c);border:2px solid var(--ink)}
+.value:nth-child(1){--c:var(--sage)}.value:nth-child(2){--c:var(--sky)}.value:nth-child(3){--c:var(--blush)}
+.value strong{font:700 1.15rem var(--display);display:block}
+
+/* services */
+.services{background:var(--sage)}
+.svc{margin-top:44px;display:flex;flex-wrap:wrap;gap:14px}
+.svc li{list-style:none;font:700 1.25rem var(--display);padding:16px 26px;background:var(--paper);border:2px solid var(--ink);border-radius:999px}
+.gallery{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;border:2px solid var(--ink);background:var(--paper)}
+.gallery img:nth-child(n+5){display:none}
+.services .more{margin-top:28px}
+
+/* story */
+.story .blocks{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}
+.block{background:var(--white);border:2px solid var(--ink);border-radius:var(--radius);padding:clamp(24px,3vw,40px)}
+.block h3{font-size:1.6rem;margin-bottom:16px}
+.block p+p{margin-top:14px}
+.closing{margin-top:40px;font:700 clamp(1.4rem,2.6vw,2rem)/1.25 var(--display);max-width:30ch}
+
+/* faq */
+.faq{background:var(--white);border-top:1px solid var(--line)}
+.faq-list{margin-top:44px;max-width:820px;border-top:2px solid var(--ink)}
+details{border-bottom:2px solid var(--ink)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 4px;font:700 1.2rem/1.3 var(--display)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font:500 1.4rem/1 var(--body);transition:transform .2s,background .2s}
+details[open] summary::after{transform:rotate(45deg);background:var(--marigold)}
+details .a{padding:0 4px 24px;color:var(--ink-soft)}
+details .a p+p{margin-top:12px}
+
+/* contact */
+.contact{background:var(--ink);color:#fff}
+.contact h2{max-width:18ch}
+.contact .lead{margin-top:18px;color:#D7D9EE}
+.contact .btn{margin-top:30px;box-shadow:4px 4px 0 #fff;border-color:#fff}
+.contact .btn:hover{box-shadow:2px 2px 0 #fff}
+.links{margin-top:48px;display:flex;flex-wrap:wrap;gap:14px 36px;list-style:none}
+.links a{font-weight:600;text-decoration:none;border-bottom:2px solid var(--marigold);padding-bottom:2px}
+.links span{display:block;font-size:.88rem;color:#B9BCDB;font-weight:400}
+
+footer{background:var(--ink);color:#B9BCDB;padding:0 0 40px;font-size:.92rem}
+footer .wrap{border-top:1px solid #3B4270;padding-top:28px;display:grid;gap:10px}
+footer p{max-width:70ch}
+
+/* responsive */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .path{max-width:380px;margin-inline:auto}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .steps li{padding:0 0 0 70px}
+  .steps li::after{top:52px;bottom:-24px;left:23px;right:auto;border-top:0;border-left:2px dashed var(--ink-soft)}
+  .cards{grid-template-columns:1fr 1fr}
+  .split,.story .blocks{grid-template-columns:1fr}
+  .split .sticky{position:static}
+  .gallery{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .menu-btn{display:block}
+  .nav ul{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px var(--gutter) 20px}
+  .nav ul.open{display:flex}
+  .nav ul li{width:100%}
+  .nav ul a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+  .nav ul li:last-child a{border:0;margin-top:10px;text-align:center}
+}
+@media (max-width:620px){.cards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .stone{animation:none;opacity:1}
+  .btn,.chip,summary::after{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Tiny Brave Steps, home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="11" cy="31" rx="8" ry="4.5" fill="#C3DCCB" stroke="#232A4A" stroke-width="2"/><ellipse cx="22" cy="21" rx="9" ry="5" fill="#CFE0F5" stroke="#232A4A" stroke-width="2"/><ellipse cx="30" cy="9" rx="8" ry="4.5" fill="#F2B632" stroke="#232A4A" stroke-width="2"/></svg>
+      Tiny Brave Steps
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <ul id="menu">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#team">Therapists</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a class="btn small" href="https://forms.gle/5a5y2qVSvki5HbWy5">Book a call</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>“Maybe you’ve been thinking about therapy for a while but never really knew how to begin.”</h1>
+      <p class="sub">Take your tiny brave step now.</p>
+      <div class="actions">
+        <a class="btn" href="https://forms.gle/5a5y2qVSvki5HbWy5">Book a call with us</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <p class="note">Online therapy, based in Delhi NCR. Gentle, trauma-informed, and at your pace.</p>
+    </div>
+    <svg class="path" viewBox="0 0 420 470" role="img" aria-label="A path of stepping stones leading upward from a golden first stone">
+      <path d="M95 410 C 170 360, 130 300, 215 265 S 330 190, 300 120 S 300 50, 345 30" fill="none" stroke="#232A4A" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".45"/>
+      <ellipse class="stone s6" cx="345" cy="38" rx="52" ry="27" fill="#DDD6F3" stroke="#232A4A" stroke-width="2.5"/>
+      <ellipse class="stone s5" cx="296" cy="118" rx="56" ry="29" fill="#F6D5D1" stroke="#232A4A" stroke-width="2.5"/>
+      <ellipse class="stone s4" cx="330" cy="205" rx="50" ry="26" fill="#CFE0F5" stroke="#232A4A" stroke-width="2.5"/>
+      <ellipse class="stone s3" cx="215" cy="268" rx="58" ry="30" fill="#C3DCCB" stroke="#232A4A" stroke-width="2.5"/>
+      <ellipse class="stone s2" cx="150" cy="352" rx="52" ry="27" fill="#DDD6F3" stroke="#232A4A" stroke-width="2.5"/>
+      <g class="stone s1">
+        <ellipse cx="95" cy="418" rx="62" ry="32" fill="#F2B632" stroke="#232A4A" stroke-width="2.5"/>
+        <text x="95" y="424" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="19" fill="#232A4A">Start here</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- FAMILIAR -->
+<section class="familiar" aria-labelledby="fam-h">
+  <div class="wrap">
+    <h2 id="fam-h">Sometimes, people come to therapy with thoughts that have been sitting quietly in the background for a long time.</h2>
+    <p class="lead">Tap any that sound like you.</p>
+    <div class="chips" role="group" aria-label="Thoughts people bring to therapy">
+      <button class="chip" aria-pressed="false">I overthink every conversation after it’s over</button>
+      <button class="chip" aria-pressed="false">I’m exhausted all the time, even when I haven’t done much</button>
+      <button class="chip" aria-pressed="false">I want to rest without feeling guilty</button>
+      <button class="chip" aria-pressed="false">I feel lonely even when I’m around people</button>
+      <button class="chip" aria-pressed="false">Small things affect me for days</button>
+      <button class="chip" aria-pressed="false">Nothing is technically wrong… but I don’t feel okay</button>
+      <button class="chip" aria-pressed="false">I don’t even know if my problems are serious enough for therapy</button>
+      <button class="chip" aria-pressed="false">I don’t know how to explain what I’m feeling</button>
+      <button class="chip" aria-pressed="false">I’m nervous this is going to feel awkward</button>
+    </div>
+    <div class="reply" id="reply" aria-live="polite" hidden>
+      <p id="reply-text"></p>
+      <a class="btn" href="https://forms.gle/5a5y2qVSvki5HbWy5">Tell us a little about yourself</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="steps-head">
+      <h2 id="how-h">How online sessions work</h2>
+      <a class="btn ghost small" href="https://forms.gle/5a5y2qVSvki5HbWy5">Start with step 1</a>
+    </div>
+    <ol class="steps">
+      <li><h3>Tell us a little about yourself</h3><p>Fill out a short form and share what has brought you here.</p></li>
+      <li><h3>We’ll find the right therapist for you</h3><p>Based on what you share, we’ll connect you with a therapist who may be the best fit for your needs.</p></li>
+      <li><h3>Let’s have a conversation first</h3><p>Your therapist will reach out on WhatsApp and schedule a brief 10–15 minute audio call.</p></li>
+      <li><h3>What that conversation covers</h3><p>What brings you to therapy, your questions, how therapy works, and the logistics: frequency, fees and duration.</p></li>
+      <li><h3>Begin your therapy journey</h3><p>You and your therapist choose a time that works for both of you, and begin one conversation at a time.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- THERAPISTS -->
+<section class="team" id="team" aria-labelledby="team-h">
+  <div class="wrap">
+    <h2 id="team-h">Meet your therapists</h2>
+    <div class="cards">
+      <article class="card">
+        <div class="ph"><img src="https://tinybravestepsco.com/wp-content/uploads/2026/06/Aastha-1-scaled-e1782297245451-1001x1024.jpg" alt="Aastha Bansal" loading="lazy"></div>
+        <div class="body">
+          <h3>Aastha Bansal</h3>
+          <ul>
+            <li>Psychologist and therapist</li>
+            <li>Expressive Arts Therapist (UNESCO CID licensed)</li>
+            <li>Advanced Emotional Freedom Technique practitioner</li>
+            <li>Matrix Reimprinting practitioner</li>
+            <li>Trauma-informed therapist</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://tinybravestepsco.com/wp-content/uploads/2026/06/me-3-scaled-e1782296621515-768x708.jpg" alt="Arundhati Agrawal" loading="lazy"></div>
+        <div class="body">
+          <h3>Arundhati Agrawal</h3>
+          <ul>
+            <li>Counselling psychologist and therapist</li>
+            <li>Expressive Arts Therapist (UNESCO CID licensed)</li>
+            <li>Couples therapist</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div class="ph"><img src="https://tinybravestepsco.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-26-at-4.43.53-PM-e1782473120323-768x720.jpeg" alt="Riya Bansal" loading="lazy"></div>
+        <div class="body">
+          <h3>Riya Bansal</h3>
+          <ul>
+            <li>Counselling psychologist</li>
+            <li>Emotional Freedom Technique practitioner (EFTMRA India)</li>
+            <li>Certified perinatal therapist</li>
+            <li>Dance Movement Therapy facilitator (CMTAI)</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+    <p class="more">You don’t have to pick. We match you based on what you’re bringing, and on each therapist’s experience and style.</p>
+  </div>
+</section>
+
+<!-- HOW WE SHOW UP -->
+<section aria-labelledby="show-h">
+  <div class="wrap split">
+    <div class="sticky">
+      <h2 id="show-h">How we’ll show up for you</h2>
+      <p style="margin-top:18px" class="big">With warmth, honesty, and care.</p>
+    </div>
+    <div class="prose">
+      <p>We meet you where you are, without pressure to have everything figured out, without needing to “fix” yourself, and without rushing your process.</p>
+      <p>At Tiny Brave Steps, we believe in creating spaces where people can be real about what they’re feeling, thinking, and carrying.</p>
+      <p>Whether you’re here for therapy, conversations, workshops, or simply to feel a little less alone in your experiences, we’re here to walk alongside you with gentleness, respect, and authenticity.</p>
+      <div class="values">
+        <div class="value"><strong>No pressure</strong>Come without the right words or a plan.</div>
+        <div class="value"><strong>No fixing</strong>You’re not broken. You’re being heard.</div>
+        <div class="value"><strong>No rushing</strong>Your pace sets the pace.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services" aria-labelledby="svc-h">
+  <div class="wrap">
+    <h2 id="svc-h">Services we provide</h2>
+    <ul class="svc">
+      <li>1:1 therapy sessions</li>
+      <li>Couples sessions</li>
+      <li>Corporate workshops and sessions</li>
+      <li>School and college workshops and sessions</li>
+      <li>Community outreach</li>
+    </ul>
+    <div class="gallery">
+      <img loading="lazy" src="https://tinybravestepsco.com/wp-content/uploads/2026/07/Mothers-Global-1-300x225.jpg" alt="School workshop">
+      <img loading="lazy" src="https://tinybravestepsco.com/wp-content/uploads/2026/06/e369fa1b-2db8-4b98-92eb-adb4b53de385.jpg-300x225.jpeg" alt="Movement workshop">
+      <img loading="lazy" src="https://tinybravestepsco.com/wp-content/uploads/2026/06/LSR-1-1-300x225.jpeg" alt="College workshop">
+      <img loading="lazy" src="https://tinybravestepsco.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-26-at-6.13.10-PM-1-1-300x225.jpeg" alt="Corporate workshop">
+    </div>
+    <p class="more"><a class="btn small" href="https://tinybravestepsco.com/gallery/">View photo gallery</a></p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="story" id="about" aria-labelledby="about-h">
+  <div class="wrap">
+    <h2 id="about-h">About Tiny Brave Steps</h2>
+    <p style="margin-top:18px">A mental health space built on warmth, honesty, and care. We’re currently operating online and are based in Delhi NCR.</p>
+    <div class="blocks">
+      <div class="block">
+        <h3>Why we’re here</h3>
+        <p>Talking about your emotions, experiences, or struggles isn’t always easy. Sometimes it’s hard to explain what you’re feeling, and sometimes you may not fully understand it yourself.</p>
+        <p>We created a space where you can show up as you are, without pressure, judgment, or the need for the “right” words.</p>
+        <p>Therapy isn’t about having all the answers. It’s about feeling heard, understood, and supported while you make sense of things at your own pace.</p>
+      </div>
+      <div class="block">
+        <h3>What we dream of</h3>
+        <p>A world where asking for emotional support feels natural and accessible, not something people feel hesitant, ashamed, or scared to reach out for.</p>
+        <p>A world where therapy feels more human, more approachable, and a normal part of understanding ourselves and caring for our emotional well-being.</p>
+        <p>Spaces and communities where people feel safe being themselves, where growth isn’t rushed or hidden, and where even the smallest steps are met with kindness.</p>
+      </div>
+    </div>
+    <p class="closing">Because sometimes, small steps can be incredibly brave.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <h2 id="faq-h">Questions you might have</h2>
+    <div class="faq-list">
+      <details><summary>Will sessions be online or offline?</summary><div class="a"><p>At the moment, all our therapy sessions are online.</p><p>We value the connection in-person therapy can offer, but we’ve found online sessions far more convenient and sustainable for most clients. Therapy fits more naturally into your day, and meaningful work can happen from the comfort of your own space.</p></div></details>
+      <details><summary>What are the charges for a session?</summary><div class="a"><p>We offer sessions within a fixed fee range, and you choose what you’d like to pay within that range. Therapy can be a significant financial commitment, so this is one way we try to make support more accessible while giving you a say in what feels sustainable right now.</p></div></details>
+      <details><summary>Can I select my own therapist?</summary><div class="a"><p>You don’t choose directly. We match you with a therapist based on the concerns you bring, considering their experience, therapeutic style and areas of expertise. Our intention is to find the best possible fit, so you feel supported and understood and can build a meaningful relationship from the start.</p></div></details>
+      <details><summary>Do I need to be prepared for sessions?</summary><div class="a"><p>Not at all. You don’t need the right words, a plan, or even clarity about what you want to say. Show up as you are, and we’ll take it from there, together.</p></div></details>
+      <details><summary>What will my therapist’s availability be?</summary><div class="a"><p>Days and timings are discussed in your initial consultation. Together you’ll find a schedule that works for you and your therapist.</p></div></details>
+      <details><summary>What is your cancellation policy?</summary><div class="a"><p>Therapy slots are limited and reserved in advance for a mutually agreed time.</p><p>Cancellations within 24 hours of the session incur a 50% session fee. Cancellations within 90 minutes of the session, and missed sessions, are charged at 100%.</p><p>In exceptional or unforeseen circumstances, you can request a same-day reschedule, which may be accommodated at no extra cost, subject to therapist availability.</p></div></details>
+      <details><summary>What do consent and confidentiality mean in therapy?</summary><div class="a"><p>Consent means you have the right to understand and agree to the therapy process at every step. Confidentiality means what you share is kept private and protected, and won’t be disclosed without your permission, except where there’s serious risk of harm to yourself or others, or when the law requires it.</p><p>In those situations, we’ll make every reasonable effort to tell you before any steps are taken, including contacting your emergency contact if necessary.</p></div></details>
+      <details><summary>Why do you ask for an emergency contact, and when would you use it?</summary><div class="a"><p>We collect it to support your safety and responsible care. It’s used only when there’s serious concern about your immediate safety or wellbeing and we can’t reach you directly. That includes acute risk, or when a client is in a region facing heightened vulnerability, such as war zones, political instability, or frequent natural disasters.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <h2 id="contact-h">Ready for your first tiny step?</h2>
+    <p class="lead">Fill out the short form and someone from our team will reach out to you.</p>
+    <a class="btn" href="https://forms.gle/5a5y2qVSvki5HbWy5">Fill out the form</a>
+    <ul class="links">
+      <li><a href="mailto:reachout.tbs@gmail.com"><span>Email</span>reachout.tbs@gmail.com</a></li>
+      <li><a href="https://www.instagram.com/tinybravesteps_"><span>Instagram</span>tinybravesteps_</a></li>
+      <li><a href="https://www.linkedin.com/company/tiny-brave-steps/"><span>LinkedIn</span>Tiny Brave Steps</a></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>If you’re in immediate danger, call 112 in India, or Tele-MANAS on 14416. Tiny Brave Steps is not an emergency service.</p>
+    <p>© 2026 Tiny Brave Steps</p>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const mb=document.querySelector('.menu-btn'),menu=document.getElementById('menu');
+  mb.addEventListener('click',()=>{const o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  menu.addEventListener('click',e=>{if(e.target.closest('a')){menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+
+  // "sound like you" chips
+  const chips=[...document.querySelectorAll('.chip')],reply=document.getElementById('reply'),txt=document.getElementById('reply-text');
+  function update(){
+    const n=chips.filter(c=>c.getAttribute('aria-pressed')==='true').length;
+    if(!n){reply.hidden=true;return}
+    reply.hidden=false;
+    txt.textContent = n===1
+      ? "That’s a very human thing to carry. You don’t need a bigger reason to begin."
+      : "You’re not alone in any of these. Bring whichever feel true to a first call, no words prepared.";
+  }
+  chips.forEach(c=>c.addEventListener('click',()=>{
+    c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true');update();
+  }));
+</script>
+</body>
+</html>
